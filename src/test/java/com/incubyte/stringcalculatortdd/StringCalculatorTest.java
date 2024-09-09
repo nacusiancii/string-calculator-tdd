@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 public class StringCalculatorTest {
 	@Test
+	void testNull() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(0,stringCalculator.add(null));
+	}
+	@Test
 	void testEmptyString() {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(0,stringCalculator.add(""));
@@ -30,5 +35,15 @@ public class StringCalculatorTest {
 	void testMultipleNumbers() {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(128,stringCalculator.add("23,67,22,7,9"));
+	}
+	@Test
+	void testEmptyStringWithNumbers() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("23,67,,,,,,22,7,9"));
+	}
+	@Test
+	void testInvalidNumber() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(NumberFormatException.class, ()->stringCalculator.add("abc"));
 	}
 }
