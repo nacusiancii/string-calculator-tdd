@@ -73,4 +73,9 @@ public class StringCalculatorTest {
 		RuntimeException e = assertThrows(RuntimeException.class, ()->stringCalculator.add("1,-2,3,-4,5,-6"));
 		assertEquals("negatives not allowed\n following negative numbers are present:-2,-4,-6", e.getMessage());
 	}
+	@Test
+	void testNumbersBiggerThanThousand() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("23,1046,67,22,7,1289,9"));
+	}
 }
