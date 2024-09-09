@@ -46,4 +46,19 @@ public class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertThrows(NumberFormatException.class, ()->stringCalculator.add("abc"));
 	}
+	@Test
+	void testCommandWithNewLines() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(129, stringCalculator.add("23\n67,22,7\n10"));
+	}
+	@Test
+	void testSemiColonDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//;\n23;67;22;7;9"));
+	}
+	@Test
+	void testSemiColonDelimiterWithNewLines() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//;\n23;67\n22;7\n9"));
+	}
 }
