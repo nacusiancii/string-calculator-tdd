@@ -61,4 +61,16 @@ public class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(128,stringCalculator.add("//;\n23;67\n22;7\n9"));
 	}
+	@Test
+	void testSingleNegativeNumber() {
+		StringCalculator stringCalculator = new StringCalculator();
+		RuntimeException e = assertThrows(RuntimeException.class, ()->stringCalculator.add("1,-2"));
+		assertEquals("negatives not allowed\n following negative numbers are present:-2", e.getMessage());
+	}
+	@Test
+	void testMultipleNegativeNumbers() {
+		StringCalculator stringCalculator = new StringCalculator();
+		RuntimeException e = assertThrows(RuntimeException.class, ()->stringCalculator.add("1,-2,3,-4,5,-6"));
+		assertEquals("negatives not allowed\n following negative numbers are present:-2,-4,-6", e.getMessage());
+	}
 }
