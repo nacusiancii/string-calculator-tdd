@@ -1,0 +1,12 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.incubyte</groupId>
+	<artifactId>string-calculator-tdd</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>String Calculator TDD Kata</name>
+	<description>Implementation of the String Calculator TDD Kata using Java,
+		JUnit, and Maven
+	</description>	
+</project>
