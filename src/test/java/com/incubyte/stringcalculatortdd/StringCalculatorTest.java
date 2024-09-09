@@ -78,4 +78,24 @@ public class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertEquals(128,stringCalculator.add("23,1046,67,22,7,1289,9"));
 	}
+	@Test
+	void testMultiCharDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//[...]\n23...67...22...7...9"));
+	}
+	@Test
+	void testEmptyDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class, ()->stringCalculator.add("//\n1,2"));
+	}
+	@Test
+	void testNumberInDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class, ()->stringCalculator.add("//9\n1,2"));
+	}
+	@Test
+	void testWrongMultiCharDelimiter() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class, ()->stringCalculator.add("//...\n1,2"));
+	}
 }
