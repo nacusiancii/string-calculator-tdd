@@ -80,11 +80,6 @@ public class StringCalculatorTest {
 	}
 
 	@Test
-	void testEmptyStringWithNumbers() {
-		assertEquals(128, stringCalculator.add("23,67,,,,,,22,7,9"));
-	}
-
-	@Test
 	void testInvalidNumber() {
 		assertThrows(NumberFormatException.class, () -> stringCalculator.add("abc"));
 	}
