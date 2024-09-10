@@ -98,4 +98,34 @@ public class StringCalculatorTest {
 		StringCalculator stringCalculator = new StringCalculator();
 		assertThrows(RuntimeException.class, ()->stringCalculator.add("//...\n1,2"));
 	}
+	@Test 
+	void testTwoDelimiters() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//[;][,]\n23;67;22;7,9"));
+	}
+	@Test 
+	void testTwoDelimitersWithMultipleChars() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//[;;][,,]\n23;;67;;22;;7,,9"));
+	}
+	@Test 
+	void testTwoDelimitersWithMultipleChars2() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertEquals(128,stringCalculator.add("//[;][,,]\n23;67;22;7,,9"));
+	}
+	@Test
+	void testWrongDelimitersEnding() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class,()->stringCalculator.add("//[;][,]abc\n23;67;22;7,9"));
+	}
+	@Test
+	void testWrongDelimiterStart() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class,()->stringCalculator.add("//[;]a][,]\n23;67;22;7,9"));
+	}
+	@Test
+	void testWrongDelimiterStart2() {
+		StringCalculator stringCalculator = new StringCalculator();
+		assertThrows(RuntimeException.class,()->stringCalculator.add("//[;]a[,]\n23;67;22;7,9"));
+	}
 }

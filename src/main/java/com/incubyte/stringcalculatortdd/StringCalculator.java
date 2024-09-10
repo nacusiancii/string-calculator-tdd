@@ -4,6 +4,8 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
+	private static final int MAX_ALLOWED_NUMBER = 1000;
+	private static final String DELIMITER_PREFIX = "//";
 	private static final String DEFAULT_DELIMITER = ",";
 
 	public int add(String inputCommand) {
@@ -24,7 +26,7 @@ public class StringCalculator {
 					}
 					negatives.append(numStr);
 					hasNegatives = true;
-				} else if (num <= 1000) {
+				} else if (num <= MAX_ALLOWED_NUMBER) {
 					sum += num;
 				}
 			}
@@ -40,7 +42,7 @@ public class StringCalculator {
 
 	private String[] getSplitNumbers(String inputCommand) {
 		String delimiters = DEFAULT_DELIMITER;
-		if (inputCommand.startsWith("//")) {
+		if (inputCommand.startsWith(DELIMITER_PREFIX)) {
 			String[] commands = inputCommand.split("\n", 2);
 			delimiters = commands[0].substring(2);
 			delimiters = getRegEx(delimiters);
@@ -51,7 +53,8 @@ public class StringCalculator {
 		return splitNumbers;
 	}
 
-	private String getRegEx(String delimiters) {
+	public String getRegEx(String delimiters) {
+		String closeSqBracketExp = Pattern.quote("]");
 		if (delimiters.length() == 0) {
 			throw new RuntimeException("Empty Delimiter");
 		} else if (delimiters.matches("\\d")) {
@@ -59,7 +62,27 @@ public class StringCalculator {
 		} else if (delimiters.length() == 1) {
 			return Pattern.quote(delimiters);
 		} else if (delimiters.startsWith("[")) {
-			return Pattern.quote(delimiters.substring(1, delimiters.length() - 1));
+			if(!delimiters.endsWith("]")) {
+				throw new RuntimeException("Delimiters should end with ]");
+			}
+			
+			String[] splitDelimiters = delimiters.split(closeSqBracketExp);
+			StringBuilder regEx = new StringBuilder();
+			boolean startedRegEx = false;
+
+			for(int i=0;i<splitDelimiters.length;i++) {
+				String delim = splitDelimiters[i];
+				if(!delim.startsWith("[")) {
+					throw new RuntimeException("Delimiters should start with '[' when multiple are present");
+				}
+				String quotedRegEx = Pattern.quote(delim.substring(1));
+				if(startedRegEx) {
+					regEx.append("|");
+				}
+				regEx.append(quotedRegEx);
+				startedRegEx = true;
+			}
+			return regEx.toString();
 		} else {
 			throw new RuntimeException("Invalid Delimiter");
 		}
