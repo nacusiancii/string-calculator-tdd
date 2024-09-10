@@ -57,8 +57,6 @@ public class StringCalculator {
 		String closeSqBracketExp = Pattern.quote("]");
 		if (delimiters.length() == 0) {
 			throw new RuntimeException("Empty Delimiter");
-		} else if (delimiters.matches("\\d")) {
-			throw new RuntimeException("Delimiters can't contain numbers");
 		} else if (delimiters.length() == 1) {
 			return Pattern.quote(delimiters);
 		} else if (delimiters.startsWith("[")) {
